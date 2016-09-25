@@ -8,6 +8,7 @@
 
 	<!-- google fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Julius+Sans+One" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 
 	<!-- custom stylesheet -->
 	<link rel="stylesheet" type="text/css" href="styles.css">
@@ -34,19 +35,32 @@
 		</div>
 	</nav>
 
-
+	<!-- side nav -->
 	<div id="mySidenav" class="sidenav" ng-controller="sidenavController as sc">
+		<div class="label">Search by</div>
 		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-		<a href="#" ng-repeat="method in sc.searchMethods" 
-		ng-click="sc.setSelected(method)" ng-class="{selected: sc.selectedMethod == method}">
+		<a href="#" class="item" ng-repeat="method in sc.searchMethods" ng-click="sc.setSelected(method)" ng-class="{selected: sc.selectedMethod == method}">
 			{{method}}
+			<form ng-submit="sc.observe(method, observable)" id="queryForm" onSubmit="resetForm()">
+				<input type="text" class="form-control queryInput" ng-show="sc.selectedMethod == method"
+				placeholder="Type and hit enter" ng-model="observable"/>
+			</form>
 		</a>
 	</div>
 
 	<div id="main">
 		<h2 class="center-horizontally">Welcome to the live london bus map!</h2>
 
-		<div id="map" class="center-horizontally"></div>
+		<div id="tagArea" ng-controller="tagController as tc">
+			<div id="regPlateTags" ng-show="tc.getRegPlates().length > 0">
+				<tag class="amber" ng-repeat="regPlate in tc.getRegPlates() | orderBy: 'toString()'" type="Reg plate" label="{{regPlate}}"/>
+			</div>
+			<div id="routeTags" ng-show="tc.getRoutes().length > 0">
+				<tag ng-repeat="route in tc.getRoutes() | orderBy: 'toString()'" type="Route" label="{{route}}"/>
+			</div>
+		</div>
+
+		<div id="map" class="center-horizontally"/>
 	</div>
 
 
@@ -57,16 +71,19 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<!-- angularjs -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+	<script src="js/app.js"></script>
+	<script src="js/sidenavController.js"></script>		
+	<script src="js/tagController.js"></script>	
+	<script src="js/busObserverService.js"></script>
+	<script src="js/tagDirective.js"></script>
 	<!-- google map -->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAy29clIDxMw6vQw5UG_R0DstP4GAje76w&callback=initMap"
 	async defer></script>
 	<!-- custom scripts -->
 	<script src="js/scripts.js"></script>
 	<script src="js/map.js"></script>
-	<script src="js/app.js"></script>
-	<script src="js/sidenavController.js"></script>
 
-	
+
 
 
 

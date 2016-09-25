@@ -24,6 +24,10 @@ function hideDrawerTip() {
 	$('#drawerTip').hide('slow');
 }
 
+function resetForm() {	
+	$('.queryInput').val('');
+}
+
 /* Google map */
 var map;
 function initMap() {
@@ -43,4 +47,5 @@ function initMap() {
 
 $(document).ready(function() {
 	$('body').fadeIn('slow');
+
 })
