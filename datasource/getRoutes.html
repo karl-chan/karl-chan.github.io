@@ -1,0 +1,17 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script type="text/javascript">
+	$.ajax('../data/tflCredentials.json')
+	.done(function(data) {
+		tflCredentials = JSON.parse(data);
+		var app_id = tflCredentials['app_id'];
+		var app_key = tflCredentials['app_key'];
+
+		$.ajax('https://api.tfl.gov.uk/Line/Mode/bus?app_id=' + app_id + '&app_key=' + app_key)
+		.done(function (data) {
+			var routes = data.map(function (e) {
+				return e['id'];
+			});
+			document.write(JSON.stringify(routes));
+		});
+	});
+</script>
