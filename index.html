@@ -17,10 +17,10 @@
 </head>
 <body ng-app="app">
 	<!-- nav bar -->
-	<nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+	<nav class="navbar navbar-default navbar-fixed-top navbar-custom" ng-controller="navbarController as nc">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#" onclick="toggleNav()">
+				<a class="navbar-brand" href="#" ng-click="nc.toggle()">
 					&#9776;&nbsp;&nbsp;&nbsp;&nbsp;
 					<div id="drawerTip">
 						<img id="arrow" type="image/png" src="img/left_arrow_fancy.png" style="display:block;" />
@@ -38,11 +38,11 @@
 	<!-- side nav -->
 	<div id="mySidenav" class="sidenav" ng-controller="sidenavController as sc">
 		<div class="label">Search by</div>
-		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+		<a href="javascript:void(0)" class="closebtn" ng-click="sc.close()">&times;</a>
 		<a href="#" class="item" ng-repeat="method in sc.searchMethods" ng-click="sc.setSelected(method)" ng-class="{selected: sc.selectedMethod == method}">
 			{{method}}
-			<form ng-submit="sc.observe(method, observable.toLowerCase())" id="queryForm" onSubmit="resetForm()">
-				<input type="text" class="form-control text-uppercase queryInput" ng-show="sc.selectedMethod == method"
+			<form ng-submit="sc.observe(method, observable.toUpperCase()); sc.clearForms()" id="queryForm">
+				<input type="text" class="form-control text-uppercase" ng-show="sc.selectedMethod == method"
 				placeholder="Type and hit enter" ng-model="observable"/>
 			</form>
 		</a>
@@ -74,6 +74,7 @@
 	<!-- angularjs -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
 	<script src="angular/app.js"></script>
+	<script src="angular/controller/navbarController.js"></script>
 	<script src="angular/controller/sidenavController.js"></script>		
 	<script src="angular/controller/tagController.js"></script>	
 	<script src="angular/service/busObserverService.js"></script>
