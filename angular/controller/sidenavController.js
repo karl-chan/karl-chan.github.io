@@ -21,12 +21,14 @@ angular.module('app')
 	}
 
 	self.open= function () {
+		self.isOpen = true;
 		$('#mySidenav').width('250px');
 		$('#main').css('marginLeft', '250px');
 		$('#main').css('width', '100%').css('width', '-=250px');
 	}
 
 	self.close = function() {
+		self.isOpen = false;
 		$('#mySidenav').width('0');
 		$('#main').css('marginLeft', '0');
 		$('#main').css('width', '100%');

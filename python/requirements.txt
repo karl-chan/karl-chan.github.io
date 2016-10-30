@@ -1,0 +1,4 @@
+pandas
+requests
+grequests
+https://cdn.mysql.com/Downloads/Connector-Python/mysql-connector-python-2.1.4.tar.gz
